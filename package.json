@@ -11,7 +11,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@opendatacapture/runtime-v1": "^1.8.8"
+    "@opendatacapture/runtime-v1": "^1.8.9"
   },
   "devDependencies": {
     "@douglasneuroinformatics/eslint-config": "^6.0.0",
