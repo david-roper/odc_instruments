@@ -65,7 +65,7 @@ export default defineInstrument({
       fr: ['Veuillez remplir les réponses qui décrivent le mieux votre consommation de cannabis']
     },
     title: {
-      en: 'Cannabis Use Disorder Identification Test - Revised (CUDIT-R)',
+      en: 'Cannabis Use Identification Test - Revised (CUDIT-R)',
       fr: 'Teste de consommation du Cannabis (CUDIT-R)'
     }
   },
@@ -105,6 +105,7 @@ export default defineInstrument({
         en: '1. How often do you use Cannabis?',
         fr: '1. A quelle fréquence tu consomme du Cannabis?'
       },
+      disableAutoPrefix: true,
       options: {
         en: {
           0: 'Never',
@@ -129,6 +130,7 @@ export default defineInstrument({
         en: '2. How many hours were you "stoned" on a typical day when you were using cannabis?',
         fr: "2. Combien d'heures êtes-vous « défoncé » un jour typique où vous consommez du cannabis??"
       },
+      disableAutoPrefix: true,
       options: {
         en: {
           0: 'Less than 1',
@@ -153,6 +155,7 @@ export default defineInstrument({
         en: '3. How often during the past 6 months did you find that you were not able to stop using cannabis once you had started?',
         fr: "3. Au cours des 6 derniers mois, à quelle fréquence avez-vous constaté que vous n'étiez plus capable de vous arrêter de fumer du cannabis une fois que vous aviez commencé?"
       },
+      disableAutoPrefix: true,
       options: {
         en: {
           0: 'Never',
@@ -177,6 +180,7 @@ export default defineInstrument({
         en: '4. How often during the past 6 months did you fail to do what was normally expected from you because of using cannabis?',
         fr: '4. Au cours des 6 derniers mois, combien de fois votre consommation de cannabis vous a-t-elle empêché de faire ce qui était normalement attendu de vous?'
       },
+      disableAutoPrefix: true,
       options: {
         en: {
           0: 'Never',
@@ -201,6 +205,7 @@ export default defineInstrument({
         en: '5. How often in the past 6 months have you devoted a great deal of your time to getting, using, or recovering from cannabis?',
         fr: '5. Au cours des 6 derniers mois, combien de fois avez-vous passé une grande partie de votre temps à chercher à vous procurer ou consommer du cannabis, ou à vous remettre des effets du cannabis ?'
       },
+      disableAutoPrefix: true,
       options: {
         en: {
           0: 'Never',
@@ -225,6 +230,7 @@ export default defineInstrument({
         en: '6. How often in the past 6 months have you had a problem with your memory or concentration after using cannabis?',
         fr: '6. Au cours des 6 derniers mois, combien de fois avez-vous éprouvé des problèmes de mémoire ou de concentration après avoir fumé du cannabis?'
       },
+      disableAutoPrefix: true,
       options: {
         en: {
           0: 'Never',
@@ -249,6 +255,7 @@ export default defineInstrument({
         en: '7. How often do you use cannabis in situations that could be physically hazardous, such as driving, operating machinery, or caring for children:',
         fr: "7. A quelle fréquence consommez-vous du cannabis dans des situations qui pourraient entrainer un danger, par exemple conduire un véhicule, utiliser une machine, ou s'occuper d'enfants?"
       },
+      disableAutoPrefix: true,
       options: {
         en: {
           0: 'Never',
@@ -273,6 +280,7 @@ export default defineInstrument({
         en: '8. Have you ever thought about cutting down, or stopping, your use of cannabis?',
         fr: "8. Avez-vous déjà envisagé de réduire ou d'arrêter votre consommation de cannabis ?"
       },
+      disableAutoPrefix: true,
       options: {
         en: {
           0: 'Never',
