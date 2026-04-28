@@ -65,7 +65,7 @@ export default defineInstrument({
       fr: ['Veuillez remplir les réponses qui décrivent le mieux votre consommation de cannabis']
     },
     title: {
-      en: 'Cannabis Use Disorder Identification Test - Revised (CUDIT-R)',
+      en: 'Cannabis Use Identification Test - Revised (CUDIT-R)',
       fr: 'Teste de consommation du Cannabis (CUDIT-R)'
     }
   },
