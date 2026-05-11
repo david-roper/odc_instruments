@@ -20,8 +20,8 @@ export default defineInstrument({
   content: [
     {
       description: {
-        en: 'This scale is intended to record your own assessment of any sleep difficulty you might have experienced.',
-        fr: 'Cette échelle est destinée à noter votre propre évaluation des difficultés de sommeil que vous auriez pu avoir éprouvé.'
+        en: 'This scale is intended to record your own assessment of any sleep difficulty you might have experienced. Please, check (by clicking the appropriate number) the items below to indicate your estimate of any difficulty, provided that it occurred at least three times per week during the last month.',
+        fr: "Cette échelle est destinée à noter votre propre évaluation des difficultés de sommeil que vous auriez pu avoir éprouvé. Veuillez cocher (en cliquant sur le numéro approprié) les éléments ci-dessous pour indiquer votre estimation de toute difficulté, à condition qu'elle se soit produite au moins trois fois par semaine au cours du dernier mois."
       },
       fields: {
         sleepInduction: {
