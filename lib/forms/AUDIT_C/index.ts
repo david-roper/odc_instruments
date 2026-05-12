@@ -121,9 +121,37 @@ export default defineInstrument({
       }
     }
   },
-  validationSchema: z.object({
-    drinkingFrequency: z.number().int().min(0).max(4),
-    typicalDrinkQuantity: z.number().int().min(0).max(4),
-    bingeDrinkingFrequency: z.number().int().min(0).max(4)
-  })
+  validationSchema: z
+    .object({
+      drinkingFrequency: z.number().int().min(0).max(4),
+      typicalDrinkQuantity: z.number().int().min(0).max(4).optional(),
+      bingeDrinkingFrequency: z.number().int().min(0).max(4).optional()
+    })
+    .superRefine((val, ctx) => {
+      if (val.drinkingFrequency > 0) {
+        let sendWarning = false;
+
+        if (val.typicalDrinkQuantity === undefined) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Please answer this question / Merci de répondre à cette question',
+            path: ['typicalDrinkQuantity']
+          });
+
+          sendWarning = true;
+        }
+
+        if (val.bingeDrinkingFrequency === undefined) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Please answer this question / Merci de répondre à cette question',
+            path: ['bingeDrinkingFrequency']
+          });
+
+          sendWarning = true;
+        }
+
+        if (sendWarning) return z.NEVER;
+      }
+    })
 });
