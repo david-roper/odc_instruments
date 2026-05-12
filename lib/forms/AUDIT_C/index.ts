@@ -42,6 +42,7 @@ export default defineInstrument({
         en: '1. How often do you have a drink containing alcohol?',
         fr: "1. A quelle fréquence vous arrive-t-il de consommer des boissons contenant de l'alcool?"
       },
+      disableAutoPrefix: true,
       options: {
         en: {
           0: 'Never',
@@ -66,6 +67,7 @@ export default defineInstrument({
         en: '2. How many drinks containing alcohol do you have on a typical day when you are drinking?',
         fr: "2. Combien de verres standards buvez-vous au cours d'une journée ordinaire où vous buvez de l'alcool?"
       },
+      disableAutoPrefix: true,
       options: {
         en: {
           0: '1 or 2',
@@ -90,6 +92,7 @@ export default defineInstrument({
         en: '3. How often do you have six or more drinks on one occasion?',
         fr: "3. Au cours d'une même occasion, à quelle fréquence vous arrive-t-il de boire six verres standard ou plus?"
       },
+      disableAutoPrefix: true,
       options: {
         en: {
           0: 'Never',
