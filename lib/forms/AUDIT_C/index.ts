@@ -62,54 +62,72 @@ export default defineInstrument({
       variant: 'radio'
     },
     typicalDrinkQuantity: {
-      kind: 'number',
-      label: {
-        en: '2. How many drinks containing alcohol do you have on a typical day when you are drinking?',
-        fr: "2. Combien de verres standards buvez-vous au cours d'une journée ordinaire où vous buvez de l'alcool?"
-      },
-      disableAutoPrefix: true,
-      options: {
-        en: {
-          0: '1 or 2',
-          1: '3 or 4',
-          2: '5 or 6',
-          3: '7 to 9',
-          4: '10 or more'
-        },
-        fr: {
-          0: '1 ou 2',
-          1: '3 ou 4',
-          2: '5 ou 6',
-          3: '7 ou 9',
-          4: '10 ou plus'
+      kind: 'dynamic',
+      deps: ['drinkingFrequency'],
+      render(data) {
+        if (!data.drinkingFrequency) {
+          return null;
         }
-      },
-      variant: 'radio'
+        return {
+          kind: 'number',
+          label: {
+            en: '2. How many drinks containing alcohol do you have on a typical day when you are drinking?',
+            fr: "2. Combien de verres standards buvez-vous au cours d'une journée ordinaire où vous buvez de l'alcool?"
+          },
+          disableAutoPrefix: true,
+          options: {
+            en: {
+              0: '1 or 2',
+              1: '3 or 4',
+              2: '5 or 6',
+              3: '7 to 9',
+              4: '10 or more'
+            },
+            fr: {
+              0: '1 ou 2',
+              1: '3 ou 4',
+              2: '5 ou 6',
+              3: '7 ou 9',
+              4: '10 ou plus'
+            }
+          },
+          variant: 'radio'
+        };
+      }
     },
     bingeDrinkingFrequency: {
-      kind: 'number',
-      label: {
-        en: '3. How often do you have six or more drinks on one occasion?',
-        fr: "3. Au cours d'une même occasion, à quelle fréquence vous arrive-t-il de boire six verres standard ou plus?"
-      },
-      disableAutoPrefix: true,
-      options: {
-        en: {
-          0: 'Never',
-          1: 'Less than monthly',
-          2: 'Monthly',
-          3: 'Weekly',
-          4: 'Daily or almost daily'
-        },
-        fr: {
-          0: 'Jamais',
-          1: "Moins d'une fois par mois",
-          2: 'Une fois  par mois',
-          3: 'Une fois par semaine',
-          4: 'Chaque jour ou presque'
+      kind: 'dynamic',
+      deps: ['drinkingFrequency'],
+      render(data) {
+        if (!data.drinkingFrequency) {
+          return null;
         }
-      },
-      variant: 'radio'
+        return {
+          kind: 'number',
+          label: {
+            en: '3. How often do you have six or more drinks on one occasion?',
+            fr: "3. Au cours d'une même occasion, à quelle fréquence vous arrive-t-il de boire six verres standard ou plus?"
+          },
+          disableAutoPrefix: true,
+          options: {
+            en: {
+              0: 'Never',
+              1: 'Less than monthly',
+              2: 'Monthly',
+              3: 'Weekly',
+              4: 'Daily or almost daily'
+            },
+            fr: {
+              0: 'Jamais',
+              1: "Moins d'une fois par mois",
+              2: 'Une fois  par mois',
+              3: 'Une fois par semaine',
+              4: 'Chaque jour ou presque'
+            }
+          },
+          variant: 'radio'
+        };
+      }
     }
   },
   measures: {
