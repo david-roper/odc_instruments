@@ -75,6 +75,13 @@ export default defineInstrument({
         en: 'Here are a number of personality traits that may or may not apply to you. Please select a number next to each statement to indicate the extent to which you agree or disagree with that statement. You should rate the extent to which the pair of traits applies to you, even if one characteristic applies more strongly than the other.',
         fr: "Voici une liste de traits de caractère qui peuvent ou non vous correspondre. Veuillez indiquer dans quelle mesure vous pensez qu'ils vous correspondent. Veuillez évaluer la paire de caractéristique même si une caractéristique s'applique plus que l'autre."
       },
+      fields: {}
+    },
+    {
+      title: {
+        en: 'I see myself as ...',
+        fr: 'Je me considère comme étant . . .'
+      },
       fields: {
         extrovertedEnthusiastic: {
           kind: 'number',
