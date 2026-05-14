@@ -117,7 +117,8 @@ export default defineInstrument({
         fr: 'Score total'
       },
       value: (data) => {
-        return sum(Object.values(data));
+        if (data.drinkingFrequency === 0) return 0;
+        return data.drinkingFrequency + (data.typicalDrinkQuantity ?? 0) + (data.bingeDrinkingFrequency ?? 0);
       }
     }
   },
