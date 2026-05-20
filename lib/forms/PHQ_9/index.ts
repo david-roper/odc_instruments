@@ -143,10 +143,10 @@ export default defineInstrument({
     estimatedDuration: 1,
     instructions: {
       en: [
-        "Before beginning this test, please ensure you are in a a quiet place where you can focus without distractions. You will answer 9 questions about how you've been feeling over the past 2 weeks. Answer each question as honestly as possible based on your feelings and experiences."
+        "You will answer 9 questions about how you've been feeling over the past 2 weeks. Answer each question as honestly as possible based on your feelings and experiences."
       ],
       fr: [
-        "Avant de commencer ce test, assurez-vous d'être dans un endroit calme où vous pourrez vous concentrer sans distraction. Vous allez répondre à 9 questions sur ce que vous avez ressenti au cours des deux dernières semaines. Répondez à chaque question le plus honnêtement possible, en vous basant sur vos sentiments et vos expériences."
+        'Vous allez répondre à 9 questions sur ce que vous avez ressenti au cours des deux dernières semaines. Répondez à chaque question le plus honnêtement possible, en vous basant sur vos sentiments et vos expériences.'
       ]
     }
   },
