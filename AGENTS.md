@@ -224,7 +224,7 @@ interface StringFieldWithoutOptions<TLanguage> extends BaseField<TLanguage> {
 ```ts
 // With a fixed set of options (radio buttons or a dropdown)
 interface NumberFieldWithOptions<TLanguage, TValue extends number> extends BaseField<TLanguage> {
-  disableAutoPrefix?: boolean;
+  disableAutoPrefix?: boolean; // remove auto generated numbers attached to the response options
   kind: 'number';
   options: { [K in TValue]: string };
   variant: 'radio' | 'select';
@@ -300,6 +300,7 @@ type Fieldset<TLanguage, TFieldset> = {
 interface RecordArrayField<TLanguage, TValue> extends BaseField<TLanguage> {
   fieldset: Fieldset<TLanguage, TValue[number]>;
   kind: 'record-array';
+  disableAutoSuffix?: boolean; //disables the automatically generated number suffix on the record items label
 }
 ```
 
