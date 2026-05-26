@@ -151,8 +151,8 @@ export default defineInstrument({
       kind: 'string',
       variant: 'radio',
       label: {
-        en: 'Do you have someone you trust and can confide in?',
-        fr: 'Y a-t-il une personne en qui vous avez confiance et à laquelle vous pouvez-vous confier?'
+        en: 'Is there someone who would give you any help at all if you were sick or disabled, for example, your husband/wife, a member of your family or a friend?',
+        fr: "Y a-t-il quelqu'un qui vous donnerait une aide quelconque si vous étiez malade ou infirme, par exemple votre époux(se), un membre de la famille ou un(e) ami(e)?"
       },
       options: {
         en: {
