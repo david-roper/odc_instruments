@@ -24,6 +24,14 @@ pnpm exec serve-instrument lib/forms/GAD_7
 
 The dev server runs on port `3000` by default; override it with `-p <number>`.
 
+## Linting
+
+Type-check and lint the instruments with:
+
+```sh
+pnpm lint
+```
+
 ## Examples
 
 Browse live examples of instruments on our playground: https://playground.opendatacapture.org
