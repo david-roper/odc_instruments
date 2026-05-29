@@ -8,21 +8,31 @@ importers:
   .:
     dependencies:
       '@opendatacapture/runtime-v1':
+<<<<<<< HEAD
         specifier: ^1.8.9
         version: 1.8.9
+=======
+        specifier: ^1.8.11
+        version: 1.8.11
+>>>>>>> maxime
     devDependencies:
       '@douglasneuroinformatics/eslint-config':
         specifier: ^6.0.0
         version: 6.0.0(@typescript-eslint/parser@8.59.0(eslint@9.39.1(jiti@2.6.1))(typescript@6.0.3))(eslint@9.39.1(jiti@2.6.1))(typescript@6.0.3)
       '@douglasneuroinformatics/prettier-config':
         specifier: ^0.3.0
-        version: 0.3.0(husky@9.1.7)(prettier@3.6.2)
+        version: 0.3.0(husky@9.1.7)(prettier@3.8.3)
       '@douglasneuroinformatics/tsconfig':
         specifier: ^2.0.0
         version: 2.0.0(typescript@6.0.3)
       '@opendatacapture/serve-instrument':
+<<<<<<< HEAD
         specifier: ^0.0.9
         version: 0.0.9(@opendatacapture/runtime-v1@1.8.9)
+=======
+        specifier: ^0.0.12
+        version: 0.0.12(@opendatacapture/runtime-v1@1.8.11)
+>>>>>>> maxime
       '@types/node':
         specifier: ^22.x
         version: 22.19.0
@@ -33,8 +43,8 @@ importers:
         specifier: ^9.1.7
         version: 9.1.7
       prettier:
-        specifier: ^3.5.3
-        version: 3.6.2
+        specifier: ^3.8.3
+        version: 3.8.3
       typescript:
         specifier: 6.0.x
         version: 6.0.3
@@ -346,16 +356,22 @@ packages:
       { integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg== }
     engines: { node: '>= 8' }
 
+<<<<<<< HEAD
   '@opendatacapture/runtime-v1@1.8.9':
     resolution:
       { integrity: sha512-Ep1HW8XkHIb0yC90FBJfR25bILchFTwwhJafQsaj+SKn4CMNR+mn5ThDPP5UD2z3+OTkIsxvLE/U8hZ5/1zAzw== }
-
-  '@opendatacapture/serve-instrument@0.0.9':
+=======
+  '@opendatacapture/runtime-v1@1.8.11':
     resolution:
-      { integrity: sha512-sM8QBAhvoTqIUOpur9U70rtLY6N0mZCyuFY0CDuVWeJYvObDDmX1Psmjz/qa1dEy+H2tB009b7ZJlK5pKwbe6Q== }
+      { integrity: sha512-cCe6Uaj40JF3QUVV2RmZ8c3FMv0e5eqtN45uoOuFH8Xebx4Acl6/LOvWudrvIvT3oLUyRiBKWom9wGM81sqIsw== }
+>>>>>>> maxime
+
+  '@opendatacapture/serve-instrument@0.0.12':
+    resolution:
+      { integrity: sha512-8+V6jCACPf1WudF+q5uheKIhpHb/P+UXqy0PVOxk+5eFOXrdyS3EXYqHIyQkxxb/qL1CodZBKOLPph/oRA8imQ== }
     hasBin: true
     peerDependencies:
-      '@opendatacapture/runtime-v1': 1.8.8
+      '@opendatacapture/runtime-v1': 1.8.10
 
   '@pkgr/core@0.2.9':
     resolution:
@@ -1595,9 +1611,9 @@ packages:
       { integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g== }
     engines: { node: '>= 0.8.0' }
 
-  prettier@3.6.2:
+  prettier@3.8.3:
     resolution:
-      { integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ== }
+      { integrity: sha512-7igPTM53cGHMW8xWuVTydi2KO233VFiTNyF5hLJqpilHfmn8C8gPf+PS7dUT64YcXFbiMGZxS9pCSxL/Dxm/Jw== }
     engines: { node: '>=14' }
     hasBin: true
 
@@ -1957,9 +1973,9 @@ snapshots:
       - svelte
       - ts-node
 
-  '@douglasneuroinformatics/prettier-config@0.3.0(husky@9.1.7)(prettier@3.6.2)':
+  '@douglasneuroinformatics/prettier-config@0.3.0(husky@9.1.7)(prettier@3.8.3)':
     dependencies:
-      prettier: 3.6.2
+      prettier: 3.8.3
     optionalDependencies:
       husky: 9.1.7
 
@@ -2123,11 +2139,19 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
+<<<<<<< HEAD
   '@opendatacapture/runtime-v1@1.8.9': {}
 
   '@opendatacapture/serve-instrument@0.0.9(@opendatacapture/runtime-v1@1.8.9)':
     dependencies:
       '@opendatacapture/runtime-v1': 1.8.9
+=======
+  '@opendatacapture/runtime-v1@1.8.11': {}
+
+  '@opendatacapture/serve-instrument@0.0.12(@opendatacapture/runtime-v1@1.8.11)':
+    dependencies:
+      '@opendatacapture/runtime-v1': 1.8.11
+>>>>>>> maxime
       chalk: 5.6.2
       commander: 12.1.0
       esbuild: 0.23.1
@@ -3363,7 +3387,7 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier@3.6.2: {}
+  prettier@3.8.3: {}
 
   prop-types@15.8.1:
     dependencies:
