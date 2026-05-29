@@ -7,6 +7,7 @@ Adhere to the following guidelines:
 3. Avoid redundant text unless needed to preserve the original structure; do not restate content in multiple places (e.g., instructions vs. field group descriptions) unless that matches the source.
 4. If a request would misrepresent the source material, explain why and confirm whether the user wants to proceed anyway.
 5. Place generated forms in lib/forms and interactive tasks in lib/interactive.
+6. After generating or modifying an instrument, type-check and lint your work by running `pnpm lint`, and fix any errors it reports.
 
 # Instrument Specification
 
