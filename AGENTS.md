@@ -15,10 +15,11 @@ Adhere to the following guidelines:
 
 In Open Data Capture (ODC), an instrument is the unit of data collection: it defines what the user sees, what data is produced, and how that data is validated. Instruments are code-based JavaScript objects and written in TypeScript.
 
-Every instrument has a `kind` field that acts as a discriminator. The three valid kinds are:
+Every instrument has a `kind` field that acts as a discriminator. The four valid kinds are:
 
 - `FORM` (scalar): declarative form fields, produces a single data payload.
 - `INTERACTIVE` (scalar): arbitrary code that runs in an iframe, produces a single data payload.
+- `FILE` (scalar): collects one or more uploaded files; produces no field data of its own.
 - `SERIES` (non-scalar): ordered list of references to scalar instruments; produces no data itself.
 
 The `language` field determines how all UI-facing string fields are structured.
@@ -32,7 +33,7 @@ The only two supported languages are `'en'` (English) and `'fr'` (French).
 
 ```ts
 type Language = 'en' | 'fr';
-type InstrumentKind = 'FORM' | 'INTERACTIVE' | 'SERIES';
+type InstrumentKind = 'FILE' | 'FORM' | 'INTERACTIVE' | 'SERIES';
 type InstrumentLanguage = Language | Language[];
 type InstrumentUIOption<TLanguage extends InstrumentLanguage, TValue> = TLanguage extends Language
   ? TValue
@@ -51,8 +52,24 @@ interface InstrumentDetails<TLanguage extends InstrumentLanguage> {
   /** A brief description of the instrument, such as the purpose and history of the instrument */
   description: InstrumentUIOption<TLanguage, string>;
 
-  /** An identifier corresponding to the SPDX license list version d2709ad (released on 2024-01-30) */
-  license: string;
+  /**
+   * @deprecated use `clientDetails.estimatedDuration`.
+   * An integer representing the estimated number of minutes to complete the instrument.
+   */
+  estimatedDuration?: number;
+
+  /**
+   * @deprecated use `clientDetails.instructions`.
+   * Brief sequential instructions for how the subject should complete the instrument.
+   */
+  instructions?: InstrumentUIOption<TLanguage, string[]>;
+
+  /**
+   * A valid SPDX license identifier (`LicenseIdentifier`), corresponding to the SPDX license list
+   * version d2709ad (released on 2024-01-30). When authoring inside the Open Data Capture
+   * repository, this is further narrowed to an `ApprovedLicense` (e.g. `'Apache-2.0'`).
+   */
+  license: LicenseIdentifier;
 
   /** An reference link where the user can learn more about the instrument */
   referenceUrl?: null | string;
@@ -76,12 +93,16 @@ interface ClientInstrumentDetails<TLanguage extends InstrumentLanguage> {
 }
 
 interface BaseInstrument<TLanguage extends InstrumentLanguage> {
+  /** The runtime version for this instrument; set automatically by `defineInstrument`. Do not set it yourself. */
+  __runtimeVersion: 1;
   /** The content in the instrument to be rendered to the client */
   clientDetails?: ClientInstrumentDetails<TLanguage>;
   /** The content in the instrument to be rendered to the clinician/researcher */
   content?: unknown;
   /** The details of the instrument to be displayed to the user */
   details: InstrumentDetails<TLanguage>;
+  /** The database ID for the instrument. For scalar instruments, this is derived from `internal`. */
+  id?: string;
   /** The discriminator key for the type of instrument */
   kind: InstrumentKind;
   /** The language(s) in which the instrument is written */
@@ -90,6 +111,9 @@ interface BaseInstrument<TLanguage extends InstrumentLanguage> {
   tags: InstrumentUIOption<TLanguage, string[]>;
 }
 ```
+
+> `__runtimeVersion` is injected by `defineInstrument` / `defineSeriesInstrument` — author your
+> definition object without it.
 
 ### 1.1 Scalar vs Series Instruments
 
@@ -103,16 +127,24 @@ Scalar instruments are those that can be completed. They:
 ```ts
 type InstrumentMeasureVisibility = 'hidden' | 'visible';
 
+// The value a measure may resolve to.
+type InstrumentMeasureValue = boolean | Date | number | RecordArrayFieldValue[] | string | undefined;
+
 interface ComputedInstrumentMeasure<TData, TLanguage extends InstrumentLanguage> {
+  /** @deprecated use `visibility` */
+  hidden?: boolean;
   kind: 'computed';
   label: InstrumentUIOption<TLanguage, string>;
-  value: (data: TData) => unknown;
+  value: (data: TData) => InstrumentMeasureValue;
   visibility?: InstrumentMeasureVisibility;
 }
 
 interface ConstantInstrumentMeasure<TData, TLanguage extends InstrumentLanguage> {
+  /** @deprecated use `visibility` */
+  hidden?: boolean;
   kind: 'const';
   label?: InstrumentUIOption<TLanguage, string>;
+  /** The data key whose value is exposed as a measure (must hold an `InstrumentMeasureValue`). */
   ref: Extract<keyof TData, string>;
   visibility?: InstrumentMeasureVisibility;
 }
@@ -143,9 +175,16 @@ Series instruments are orchestration containers. They:
 - Define an ordered list of scalar instrument identities (the same `{ edition, name }` shape used by scalar `internal`)
 - Do not define `validationSchema`, `measures`, or `internal` (they are not directly completed)
 
+The `content` may be either a bare ordered array of identities, or an object that wraps the array
+with optional series-level `params`:
+
 ```ts
+type SeriesContent =
+  | ScalarInstrumentInternal[]
+  | { items: ScalarInstrumentInternal[]; params?: { skipProgress?: boolean } };
+
 interface SeriesInstrument<TLanguage extends InstrumentLanguage> extends BaseInstrument<TLanguage> {
-  content: ScalarInstrumentInternal[];
+  content: SeriesContent;
   internal?: never;
   kind: 'SERIES';
 }
@@ -201,7 +240,7 @@ interface BaseField<TLanguage extends InstrumentLanguage> {
 }
 ```
 
-The six static scalar field types are:
+The five static scalar field types are:
 
 **`string`** - corresponds to type `string`
 
@@ -216,7 +255,16 @@ interface StringFieldWithOptions<TLanguage, TValue extends string> extends BaseF
 // Free-text input
 interface StringFieldWithoutOptions<TLanguage> extends BaseField<TLanguage> {
   kind: 'string';
+  placeholder?: string; // placeholder is plain text, not multilingual
   variant: 'input' | 'textarea';
+}
+
+// Masked password input, with an optional strength meter
+interface StringFieldPassword<TLanguage> extends BaseField<TLanguage> {
+  kind: 'string';
+  // returns a strength score from 0 (weakest) to 4 (strongest)
+  calculateStrength?: (this: void, password: string) => 0 | 1 | 2 | 3 | 4;
+  variant: 'password';
 }
 ```
 
@@ -234,6 +282,10 @@ interface NumberFieldWithOptions<TLanguage, TValue extends number> extends BaseF
 // Plain numeric input
 interface NumberFieldInput<TLanguage> extends BaseField<TLanguage> {
   kind: 'number';
+  /** @deprecated define the bound in the `validationSchema` instead, for better user feedback */
+  max?: number;
+  /** @deprecated define the bound in the `validationSchema` instead, for better user feedback */
+  min?: number;
   variant: 'input';
 }
 
@@ -299,6 +351,8 @@ type Fieldset<TLanguage, TFieldset> = {
 };
 
 interface RecordArrayField<TLanguage, TValue> extends BaseField<TLanguage> {
+  /** When true, suppress the automatic numeric suffix appended to each row's heading */
+  disableAutoSuffix?: boolean;
   fieldset: Fieldset<TLanguage, TValue[number]>;
   kind: 'record-array';
 }
@@ -308,6 +362,8 @@ interface RecordArrayField<TLanguage, TValue> extends BaseField<TLanguage> {
 
 ```ts
 interface NumberRecordField<TLanguage, TValue> extends BaseField<TLanguage> {
+  /** When true, suppress the automatic numeric prefix shown before each option label */
+  disableAutoPrefix?: boolean;
   items: {
     [K in keyof TValue]: {
       description?: InstrumentUIOption<TLanguage, string>;
@@ -359,13 +415,13 @@ type FormInstrument<TData extends FormInstrument.Data, TLanguage extends Instrum
   TLanguage
 > & {
   content: FormInstrument.Content<TData, TLanguage>;
-  initialValues?: Partial<TData>;
+  initialValues?: PartialDeep<TData>;
   kind: 'FORM';
   measures: InstrumentMeasures<TData, TLanguage> | null;
 };
 ```
 
-- `initialValues` — optional pre-populated values for any subset of fields, applied when the form is first rendered.
+- `initialValues` — optional pre-populated values, applied when the form is first rendered. This is a _deep_ partial (`PartialDeep<TData>`), so nested composite values (e.g. individual fields within `record-array` rows) may be partially specified.
 
 #### 1.3.2 Interactive Instruments
 
@@ -390,23 +446,44 @@ The `content` property is a plain object with the following fields:
 
 ```ts
 content: {
+  /** The entry point for the task. Must call `done` exactly once when the task is complete. */
+  render: (done: (data: TData) => void) => PromiseLike<void> | void;
+
   /** Raw HTML string to inject into the iframe <body> */
   html?: string;
 
   /** <meta> tags for the iframe <head>; each key is the meta name, each value is the content */
   meta?: { [name: string]: string };
 
-  /** The entry point for the task. Must call `done` exactly once when the task is complete. */
-  render: (done: (data: TData) => void) => PromiseLike<void> | void;
-
   /** Static asset paths (e.g., '/image.png') mapped to base64 data URLs for use by legacy scripts */
   staticAssets?: { [key: string]: string };
+
+  /** Enter fullscreen automatically when the instrument content is shown */
+  defaultFullscreen?: boolean;
+
+  /** Show an initial screen to select a language before the instrument begins */
+  enableLanguageSelect?: boolean;
+
+  /** Show a button above the instrument to change languages */
+  enableLanguageToggle?: boolean;
+
+  /** Block the user from changing languages during the instrument */
+  enableLanguageLock?: boolean;
+
+  /** Inject pre-compiled legacy assets into the iframe <head> (for bundles that cannot use the runtime module system) */
+  readonly __injectHead?: {
+    /** base64-encoded legacy scripts */
+    readonly scripts?: readonly string[];
+    /** base64-encoded css */
+    readonly style?: string;
+  };
 }
 ```
 
 - `render` is the only required field in `content`. It receives a `done` callback and must call it exactly once with the collected data to end the task and submit the result.
-- `__injectHead` is intended for instruments that wrap pre-compiled legacy JavaScript bundles that cannot be refactored to use the runtime module system.
 - `staticAssets` maps virtual paths to base64 data URLs so that legacy scripts referencing asset paths (e.g., image `src` attributes) continue to work inside the iframe sandbox.
+- `__injectHead` is intended for instruments that wrap pre-compiled legacy JavaScript bundles that cannot be refactored to use the runtime module system; in most cases prefer the import forms in §4.2 (`import './legacy.js?legacy'`, `import './styles.css'`) over hand-encoding base64.
+- The `enableLanguage*` options only apply to multilingual instruments (`language: ['en', 'fr']`).
 
 ##### Full Type
 
@@ -416,14 +493,64 @@ type InteractiveInstrument<
   TLanguage extends InstrumentLanguage
 > = ScalarInstrument<TData, TLanguage> & {
   content: {
+    render: (done: (data: TData) => void) => PromiseLike<void> | void;
     html?: string;
     meta?: { [name: string]: string };
-    render: (done: (data: TData) => void) => PromiseLike<void> | void;
     staticAssets?: { [key: string]: string };
+    defaultFullscreen?: boolean;
+    enableLanguageSelect?: boolean;
+    enableLanguageToggle?: boolean;
+    enableLanguageLock?: boolean;
+    readonly __injectHead?: {
+      readonly scripts?: readonly string[];
+      readonly style?: string;
+    };
   };
   kind: 'INTERACTIVE';
 };
 ```
+
+#### 1.3.3 File Instruments
+
+A file instrument (`kind: 'FILE'`) is a **scalar** instrument that collects one or more uploaded files from the subject rather than declarative field data. It still requires a `validationSchema`, but its own `Data` type is empty (`{ [key: string]: never }`) — the files themselves are the payload, not field values.
+
+The `content` describes the file slots the subject must fill, grouped into one or more `fileGroups`:
+
+```ts
+namespace FileInstrument {
+  type Data = { [key: string]: never };
+
+  type FileGroup<TLanguage extends InstrumentLanguage> = {
+    /** The base filename the uploaded file(s) will be stored under */
+    basename: string;
+    /** The minimum and maximum number of files accepted for this group */
+    count: { max: number; min: number };
+    /** The label shown to the user for this group */
+    label: InstrumentUIOption<TLanguage, string>;
+    /** The single accepted MIME type, or `null` to accept any type */
+    type: FileType | null;
+  };
+
+  type Content<TLanguage extends InstrumentLanguage> = {
+    fileGroups: FileGroup<TLanguage>[];
+  };
+}
+
+type FileInstrument<TLanguage extends InstrumentLanguage> = ScalarInstrument<FileInstrument.Data, TLanguage> & {
+  content: FileInstrument.Content<TLanguage>;
+  kind: 'FILE';
+};
+```
+
+`FileType` is a single MIME string drawn from the predefined `FILE_TYPES` groups:
+
+- **binary**: `application/octet-stream`
+- **documents**: `application/pdf`, `text/plain`, `text/markdown`, `text/html`, `application/msword`, `application/vnd.openxmlformats-officedocument.wordprocessingml.document`, `application/rtf`
+- **images**: `image/png`, `image/jpeg`, `image/tiff`, `image/gif`, `image/svg+xml`, `image/bmp`
+- **spreadsheets**: `text/csv`, `text/tsv`, `application/vnd.ms-excel`, `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`, `application/vnd.oasis.opendocument.spreadsheet`
+- **structured**: `application/json`, `application/xml`
+
+Because `FileInstrument.Data` is empty, the `validationSchema` should validate to an empty object (e.g. `z.object({})`) and `measures` is typically `null`.
 
 ## 3. Runtime API and Imports
 
@@ -431,9 +558,18 @@ type InteractiveInstrument<
 
 All imports must use the runtime URL format: `/runtime/v1/<package>@<version>`.
 
+The `validationSchema` may be authored with **either Zod v3 or Zod v4** (`InstrumentValidationSchema` accepts `z.ZodType` from either). Choose the import path accordingly:
+
+```ts
+import { z } from '/runtime/v1/zod@3.x'; // Zod v3 API
+import { z } from '/runtime/v1/zod@3.x/v4'; // Zod v4 API
+```
+
+Prefer one consistently within a single instrument. New instruments should use the v4 API.
+
 ### 3.2 The Define Instrument API
 
-The `defineInstrument` function must always be used to create `FORM` and `INTERACTIVE` instruments. It accepts a definition object containing all required fields for the chosen `kind`, and returns a fully typed instrument object. The output data type is derived automatically from the `validationSchema`.
+The `defineInstrument` function must always be used to create scalar (`FORM`, `INTERACTIVE`, and `FILE`) instruments. It accepts a definition object containing all required fields for the chosen `kind`, and returns a fully typed instrument object — including the `__runtimeVersion` field, which it sets automatically. The output data type is derived automatically from the `validationSchema`.
 
 ```ts
 import { defineInstrument } from '/runtime/v1/@opendatacapture/runtime-core';
@@ -445,6 +581,38 @@ The `defineSeriesInstrument` function must always be used to create `SERIES` ins
 ```ts
 import { defineSeriesInstrument } from '/runtime/v1/@opendatacapture/runtime-core';
 ```
+
+### 3.3 Runtime Helpers
+
+`@opendatacapture/runtime-core` also exports helpers usable from within an instrument's `render`:
+
+- **`addNotification(notification)`** — display a notification in the ODC UI during an **interactive** instrument (does not work in forms):
+
+  ```ts
+  import { addNotification } from '/runtime/v1/@opendatacapture/runtime-core';
+
+  addNotification({
+    type: 'success', // 'error' | 'info' | 'success' | 'warning'
+    title: 'Saved',
+    message: 'Your response was recorded.',
+    variant: 'standard' // 'critical' | 'standard'
+  });
+  ```
+
+- **Translators** — `Translator`, `StandaloneTranslator`, and `SynchronizedTranslator` provide message translation for multilingual interactive instruments. Construct with `{ translations, fallbackLanguage? }`, then `init()`, read `resolvedLanguage`, switch with `changeLanguage(lang)`, and resolve keys with `t(key)`:
+
+  ```ts
+  import { Translator } from '/runtime/v1/@opendatacapture/runtime-core';
+
+  const translator = new Translator({
+    fallbackLanguage: 'en',
+    translations: { greeting: { en: 'Hello', fr: 'Bonjour' } }
+  });
+  translator.init();
+  translator.t('greeting');
+  ```
+
+- **`asSnakeCase(obj)`** — returns a copy of `obj` with its keys converted to snake_case.
 
 ## 4. File Structure
 

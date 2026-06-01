@@ -8,13 +8,8 @@ importers:
   .:
     dependencies:
       '@opendatacapture/runtime-v1':
-<<<<<<< HEAD
-        specifier: ^1.8.9
-        version: 1.8.9
-=======
         specifier: ^1.8.11
         version: 1.8.11
->>>>>>> maxime
     devDependencies:
       '@douglasneuroinformatics/eslint-config':
         specifier: ^6.0.0
@@ -26,13 +21,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(typescript@6.0.3)
       '@opendatacapture/serve-instrument':
-<<<<<<< HEAD
-        specifier: ^0.0.9
-        version: 0.0.9(@opendatacapture/runtime-v1@1.8.9)
-=======
         specifier: ^0.0.12
         version: 0.0.12(@opendatacapture/runtime-v1@1.8.11)
->>>>>>> maxime
       '@types/node':
         specifier: ^22.x
         version: 22.19.0
@@ -356,15 +346,9 @@ packages:
       { integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg== }
     engines: { node: '>= 8' }
 
-<<<<<<< HEAD
-  '@opendatacapture/runtime-v1@1.8.9':
-    resolution:
-      { integrity: sha512-Ep1HW8XkHIb0yC90FBJfR25bILchFTwwhJafQsaj+SKn4CMNR+mn5ThDPP5UD2z3+OTkIsxvLE/U8hZ5/1zAzw== }
-=======
   '@opendatacapture/runtime-v1@1.8.11':
     resolution:
       { integrity: sha512-cCe6Uaj40JF3QUVV2RmZ8c3FMv0e5eqtN45uoOuFH8Xebx4Acl6/LOvWudrvIvT3oLUyRiBKWom9wGM81sqIsw== }
->>>>>>> maxime
 
   '@opendatacapture/serve-instrument@0.0.12':
     resolution:
@@ -2139,19 +2123,11 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-<<<<<<< HEAD
-  '@opendatacapture/runtime-v1@1.8.9': {}
-
-  '@opendatacapture/serve-instrument@0.0.9(@opendatacapture/runtime-v1@1.8.9)':
-    dependencies:
-      '@opendatacapture/runtime-v1': 1.8.9
-=======
   '@opendatacapture/runtime-v1@1.8.11': {}
 
   '@opendatacapture/serve-instrument@0.0.12(@opendatacapture/runtime-v1@1.8.11)':
     dependencies:
       '@opendatacapture/runtime-v1': 1.8.11
->>>>>>> maxime
       chalk: 5.6.2
       commander: 12.1.0
       esbuild: 0.23.1
