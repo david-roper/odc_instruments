@@ -11,7 +11,7 @@ const fieldOptionsLikertScale = {
   },
   fr: {
     0: 'Pas du tout',
-    1: 'Un peut',
+    1: 'Un peu',
     2: 'Assez',
     3: 'Beaucoup'
   }
@@ -208,7 +208,7 @@ export default defineInstrument({
     }
   ],
   internal: {
-    name: 'STARKSTEIN_APATHY_SCALE',
+    name: 'COMMUNITCATION_COGNITIVE_CHALLENGES_IN_HIV_QUESTIONNAIRE',
     edition: 1
   },
   measures: {
