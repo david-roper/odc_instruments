@@ -8,8 +8,8 @@ importers:
   .:
     dependencies:
       '@opendatacapture/runtime-v1':
-        specifier: ^1.8.11
-        version: 1.8.11
+        specifier: ^1.16.4
+        version: 1.16.4
     devDependencies:
       '@douglasneuroinformatics/eslint-config':
         specifier: ^6.0.0
@@ -21,11 +21,11 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(typescript@6.0.3)
       '@opendatacapture/instrument-guidelines':
-        specifier: ^0.0.1
-        version: 0.0.1
+        specifier: ^1.16.4
+        version: 1.16.4
       '@opendatacapture/serve-instrument':
-        specifier: ^0.0.12
-        version: 0.0.12(@opendatacapture/runtime-v1@1.8.11)
+        specifier: ^1.16.4
+        version: 1.16.4(@opendatacapture/runtime-v1@1.16.4)
       '@types/node':
         specifier: ^22.x
         version: 22.19.0
@@ -349,21 +349,21 @@ packages:
       { integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg== }
     engines: { node: '>= 8' }
 
-  '@opendatacapture/instrument-guidelines@0.0.1':
+  '@opendatacapture/instrument-guidelines@1.16.4':
     resolution:
-      { integrity: sha512-5kjhTBCwOFPEsWKq8LkRrirrLkQzq9HGMOrmf/SGBa4M0vlJ223SU/T+w62PEopGA0TgjB+tE4abldUTQ4fTIQ== }
+      { integrity: sha512-si0hUC+PF86bw66jtTuw/VubvOlujTg4DSFJGd1aQRmPr2Pqn4UebU1pBTECRSQT6GD1liUvoXcwjUBdqBkUrQ== }
     hasBin: true
 
-  '@opendatacapture/runtime-v1@1.8.11':
+  '@opendatacapture/runtime-v1@1.16.4':
     resolution:
-      { integrity: sha512-cCe6Uaj40JF3QUVV2RmZ8c3FMv0e5eqtN45uoOuFH8Xebx4Acl6/LOvWudrvIvT3oLUyRiBKWom9wGM81sqIsw== }
+      { integrity: sha512-uvpeQ8LUDIXDq+zi0YXqkTWjLHJoOQaiXwJ4piBHD2JjRr0bV+ASEfwHxoyNKPT0aqNPsKvl6HWgifCXs1R+fA== }
 
-  '@opendatacapture/serve-instrument@0.0.12':
+  '@opendatacapture/serve-instrument@1.16.4':
     resolution:
-      { integrity: sha512-8+V6jCACPf1WudF+q5uheKIhpHb/P+UXqy0PVOxk+5eFOXrdyS3EXYqHIyQkxxb/qL1CodZBKOLPph/oRA8imQ== }
+      { integrity: sha512-hB9bLLVJ1yf18KVott4CUoZhkZGHQ5+RGtdmjwB3oMbN5jXaGNiOC+/LM1fZ6b/VMpdAhhweR6qZRJVM0uwo0Q== }
     hasBin: true
     peerDependencies:
-      '@opendatacapture/runtime-v1': 1.8.10
+      '@opendatacapture/runtime-v1': 1.16.4
 
   '@pkgr/core@0.2.9':
     resolution:
@@ -2131,13 +2131,13 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@opendatacapture/instrument-guidelines@0.0.1': {}
+  '@opendatacapture/instrument-guidelines@1.16.4': {}
 
-  '@opendatacapture/runtime-v1@1.8.11': {}
+  '@opendatacapture/runtime-v1@1.16.4': {}
 
-  '@opendatacapture/serve-instrument@0.0.12(@opendatacapture/runtime-v1@1.8.11)':
+  '@opendatacapture/serve-instrument@1.16.4(@opendatacapture/runtime-v1@1.16.4)':
     dependencies:
-      '@opendatacapture/runtime-v1': 1.8.11
+      '@opendatacapture/runtime-v1': 1.16.4
       chalk: 5.6.2
       commander: 12.1.0
       esbuild: 0.23.1

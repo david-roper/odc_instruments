@@ -11,14 +11,14 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@opendatacapture/runtime-v1": "^1.8.11"
+    "@opendatacapture/runtime-v1": "^1.16.4"
   },
   "devDependencies": {
     "@douglasneuroinformatics/eslint-config": "^6.0.0",
     "@douglasneuroinformatics/prettier-config": "^0.3.0",
     "@douglasneuroinformatics/tsconfig": "^2.0.0",
-    "@opendatacapture/instrument-guidelines": "^0.0.1",
-    "@opendatacapture/serve-instrument": "^0.0.12",
+    "@opendatacapture/instrument-guidelines": "^1.16.4",
+    "@opendatacapture/serve-instrument": "^1.16.4",
     "@types/node": "^22.x",
     "eslint": "^9.22.0",
     "husky": "^9.1.7",
