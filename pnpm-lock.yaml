@@ -20,6 +20,9 @@ importers:
       '@douglasneuroinformatics/tsconfig':
         specifier: ^2.0.0
         version: 2.0.0(typescript@6.0.3)
+      '@opendatacapture/instrument-guidelines':
+        specifier: ^0.0.1
+        version: 0.0.1
       '@opendatacapture/serve-instrument':
         specifier: ^0.0.12
         version: 0.0.12(@opendatacapture/runtime-v1@1.8.11)
@@ -345,6 +348,11 @@ packages:
     resolution:
       { integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg== }
     engines: { node: '>= 8' }
+
+  '@opendatacapture/instrument-guidelines@0.0.1':
+    resolution:
+      { integrity: sha512-5kjhTBCwOFPEsWKq8LkRrirrLkQzq9HGMOrmf/SGBa4M0vlJ223SU/T+w62PEopGA0TgjB+tE4abldUTQ4fTIQ== }
+    hasBin: true
 
   '@opendatacapture/runtime-v1@1.8.11':
     resolution:
@@ -2122,6 +2130,8 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
+
+  '@opendatacapture/instrument-guidelines@0.0.1': {}
 
   '@opendatacapture/runtime-v1@1.8.11': {}
 

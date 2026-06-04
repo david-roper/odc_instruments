@@ -85,10 +85,13 @@ import './TestHelper.v1.Oct23.js?legacy';
 
 export default defineInstrument({
   kind: 'INTERACTIVE',
-  language: 'en',
-  tags: ['TestMyBrain'],
+  language: ['en', 'fr'],
+  tags: {
+    en: ['TestMyBrain'],
+    fr: ['TestMyBrain']
+  },
   internal: {
-    edition: 1,
+    edition: 2,
     name: 'TMB_DIGIT_SYMBOL_MATCHING'
   },
   content: {
@@ -105,17 +108,27 @@ export default defineInstrument({
     },
     html,
     render,
-    staticAssets
+    staticAssets,
+    enableLanguageLock: true,
+    enableLanguageSelect: true
   },
   clientDetails: {
     estimatedDuration: 10,
-    instructions: ['Instructions will be presented on screen in the task.']
+    instructions: {
+      en: ['Instructions will be presented on screen in the task.'],
+      fr: ["Les instructions seront présentées à l'écran pendant la tâche."]
+    }
   },
   details: {
-    description:
-      'A cognitive test that assesses processing speed and attention by matching digit symbols according to a key.',
+    description: {
+      en: 'A cognitive test that assesses processing speed and attention by matching digit symbols according to a key.',
+      fr: "Un test cognitif qui évalue la vitesse de traitement et l'attention en associant des chiffres à des symboles selon une grille de correspondance."
+    },
     license: 'LGPL-3.0',
-    title: 'TMB Digit Symbol Matching'
+    title: {
+      en: 'TMB Digit Symbol Matching',
+      fr: 'TMB Appariement Chiffres-Symboles'
+    }
   },
   measures: {},
   validationSchema: z.any()

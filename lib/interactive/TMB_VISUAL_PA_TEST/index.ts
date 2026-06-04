@@ -178,10 +178,13 @@ underwater3.jpg underwater6.jpg underwater5.jpg underwater4.jpg underwater7.jpg 
 
 export default defineInstrument({
   kind: 'INTERACTIVE',
-  language: 'en',
-  tags: ['TestMyBrain'],
+  language: ['en', 'fr'],
+  tags: {
+    en: ['TestMyBrain'],
+    fr: ['TestMyBrain']
+  },
   internal: {
-    edition: 1,
+    edition: 2,
     name: 'TMB_VISUAL_PA_TEST'
   },
   content: {
@@ -335,16 +338,26 @@ export default defineInstrument({
       '/images/underwater7.jpg': underwater7Img,
       '/images/underwater8.jpg': underwater8Img,
       '/VisualPAtestInput.txt': `data:text/plain,${encodeURIComponent(studyInput)}`
-    }
+    },
+    enableLanguageSelect: true
   },
   clientDetails: {
     estimatedDuration: 1,
-    instructions: ['Instructions will be presented on screen in the task.']
+    instructions: {
+      en: ['Instructions will be presented on screen in the task.'],
+      fr: ["Les instructions seront présentées à l'écran pendant la tâche."]
+    }
   },
   details: {
-    description: 'The recall phase of a visual memory test where participants retrieve previously learned image pairs.',
+    description: {
+      en: 'The recall phase of a visual memory test where participants retrieve previously learned image pairs.',
+      fr: 'La phase de rappel d’un test de mémoire visuelle où les participants récupèrent des paires d’images apprises précédemment.'
+    },
     license: 'LGPL-3.0',
-    title: 'Visual Paired Associates - Test'
+    title: {
+      en: 'Visual Paired Associates - Test',
+      fr: 'Paires associées visuelles — Test'
+    }
   },
   measures: {},
   validationSchema: z.array(z.any())
