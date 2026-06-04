@@ -1,7 +1,8 @@
 import { defineInstrument } from '/runtime/v1/@opendatacapture/runtime-core';
 import { z } from '/runtime/v1/zod@3.x/v4';
 
-import simpleRTGif from './_SimpleRT.webp';
+import simpleRTGifEn from './_SimpleRT_EN.webp';
+import simpleRTGifFr from './_SimpleRT_FR.webp';
 import html from './fragment.html';
 import { render } from './render.js';
 
@@ -11,15 +12,19 @@ import './TestHelper.v1.May23.js?legacy';
 import './styles.css';
 
 const staticAssets = {
-  '/SimpleRT.gif': simpleRTGif
+  '/SimpleRT_EN.gif': simpleRTGifEn,
+  '/SimpleRT_FR.gif': simpleRTGifFr
 };
 
 export default defineInstrument({
   kind: 'INTERACTIVE',
-  language: 'en',
-  tags: ['TestMyBrain'],
+  language: ['en', 'fr'],
+  tags: {
+    en: ['TestMyBrain'],
+    fr: ['TestMyBrain']
+  },
   internal: {
-    edition: 1,
+    edition: 2,
     name: 'TMB_SIMPLE_RT'
   },
   content: {
@@ -36,41 +41,51 @@ export default defineInstrument({
     },
     html,
     render,
-    staticAssets
+    staticAssets,
+    enableLanguageSelect: true
   },
   clientDetails: {
     estimatedDuration: 1,
-    instructions: ['Instructions will be presented on screen in the task.']
+    instructions: {
+      en: ['Instructions will be presented on screen in the task.'],
+      fr: ["Les instructions seront présentées à l'écran pendant la tâche."]
+    }
   },
   details: {
-    description: 'A simple reaction time test that measures how quickly participants respond to visual stimuli.',
+    description: {
+      en: 'A simple reaction time test that measures how quickly participants respond to visual stimuli.',
+      fr: 'Un test de temps de réaction simple qui mesure la rapidité avec laquelle les participants réagissent à un stimulus visuel.'
+    },
     license: 'LGPL-3.0',
-    title: 'Fast Reactions'
+    title: {
+      en: 'Fast Reactions',
+      fr: 'Réactions rapides'
+    }
   },
   measures: {
     responseDevice: {
       kind: 'computed',
-      label: 'Response Device',
+      label: { en: 'Response Device', fr: 'Dispositif de réponse' },
       value: (data) => data.outcomes.responseDevice
     },
     score: {
       kind: 'computed',
-      label: 'Score',
+      label: { en: 'Score', fr: 'Score' },
       value: (data) => data.outcomes.score
     },
     meanRT: {
       kind: 'computed',
-      label: 'Reaction Time (Mean)',
+      label: { en: 'Reaction Time (Mean)', fr: 'Temps de réaction (moyenne)' },
       value: (data) => data.outcomes.meanRT
     },
     medianRT: {
       kind: 'computed',
-      label: 'Reaction Time (Median)',
+      label: { en: 'Reaction Time (Median)', fr: 'Temps de réaction (médiane)' },
       value: (data) => data.outcomes.medianRT
     },
     sdRT: {
       kind: 'computed',
-      label: 'Reaction Time (SD)',
+      label: { en: 'Reaction Time (SD)', fr: 'Temps de réaction (écart-type)' },
       value: (data) => data.outcomes.sdRT
     }
   },
