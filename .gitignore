@@ -3,3 +3,5 @@ data/
 dist/
 scratch/
 settings.local.json
+AGENTS.md
+CLAUDE.md

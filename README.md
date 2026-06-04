@@ -14,6 +14,12 @@ This repo uses [pnpm](https://pnpm.io). Install dependencies with:
 pnpm install
 ```
 
+You can setup an agents file with the following command:
+
+```sh
+pnpm exec instrument-guidelines --file CLAUDE.md
+```
+
 ## Serving an instrument
 
 Use `serve-instrument` to preview an instrument locally. Pass the instrument's directory as the target:
