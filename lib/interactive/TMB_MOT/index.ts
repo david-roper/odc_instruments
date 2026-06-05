@@ -22,8 +22,11 @@ const staticAssets = {
 
 export default defineInstrument({
   kind: 'INTERACTIVE',
-  language: 'en',
-  tags: ['TestMyBrain'],
+  language: ['en', 'fr'],
+  tags: {
+    en: ['TestMyBrain'],
+    fr: ['TestMyBrain']
+  },
   internal: {
     edition: 1,
     name: 'TMB_MOT'
@@ -43,16 +46,27 @@ export default defineInstrument({
     },
     render,
     html,
-    staticAssets
+    staticAssets,
+    enableLanguageLock: true,
+    enableLanguageSelect: true
   },
   clientDetails: {
     estimatedDuration: 1,
-    instructions: ['Instructions will be presented on screen in the task.']
+    instructions: {
+      en: ['Instructions will be presented on screen in the task.'],
+      fr: ["Les instructions seront présentées à l'écran pendant la tâche."]
+    }
   },
   details: {
-    description: 'An attention task that measures the ability to track multiple moving objects simultaneously.',
+    description: {
+      en: 'An attention task that measures the ability to track multiple moving objects simultaneously.',
+      fr: 'Une tâche attentionnelle qui mesure la capacité à suivre simultanément plusieurs objets en mouvement.'
+    },
     license: 'LGPL-3.0',
-    title: 'TMB Multiple Object Tracking'
+    title: {
+      en: 'TMB Multiple Object Tracking',
+      fr: 'TMB Suivi d’objets multiples'
+    }
   },
   measures: {},
   validationSchema: z.any()
