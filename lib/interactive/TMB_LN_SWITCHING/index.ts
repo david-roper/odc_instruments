@@ -33,8 +33,11 @@ const staticAssets = {
 
 export default defineInstrument({
   kind: 'INTERACTIVE',
-  language: 'en',
-  tags: ['TestMyBrain'],
+  language: ['en', 'fr'],
+  tags: {
+    en: ['TestMyBrain'],
+    fr: ['TestMyBrain']
+  },
   internal: {
     edition: 1,
     name: 'TMB_LN_SWITCHING'
@@ -53,17 +56,27 @@ export default defineInstrument({
     },
     html,
     render,
-    staticAssets
+    staticAssets,
+    enableLanguageLock: true,
+    enableLanguageSelect: true
   },
   clientDetails: {
     estimatedDuration: 1,
-    instructions: ['Instructions will be presented on screen in the task.']
+    instructions: {
+      en: ['Instructions will be presented on screen in the task.'],
+      fr: ["Les instructions seront présentées à l'écran pendant la tâche."]
+    }
   },
   details: {
-    description:
-      'A task switching test that evaluates cognitive flexibility by alternating between letter and number categorization.',
+    description: {
+      en: 'A task switching test that evaluates cognitive flexibility by alternating between letter and number categorization.',
+      fr: 'Un test d’alternance de tâches qui évalue la flexibilité cognitive en alternant entre la catégorisation de lettres et de chiffres.'
+    },
     license: 'LGPL-3.0',
-    title: 'Letter/Number Switching'
+    title: {
+      en: 'Letter/Number Switching',
+      fr: 'Alternance lettres/chiffres'
+    }
   },
   measures: {},
   validationSchema: z
