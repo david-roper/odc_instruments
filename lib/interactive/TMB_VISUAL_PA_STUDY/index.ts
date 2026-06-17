@@ -339,6 +339,8 @@ export default defineInstrument({
       '/images/underwater8.jpg': underwater8Img,
       '/VisualPAstudyInput.txt': `data:text/plain,${encodeURIComponent(studyInput)}`
     },
+    defaultFullscreen: true,
+    enableLanguageLock: true,
     enableLanguageSelect: true
   },
   clientDetails: {

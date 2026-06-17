@@ -47,6 +47,7 @@ export default defineInstrument({
     render,
     html,
     staticAssets,
+    defaultFullscreen: true,
     enableLanguageLock: true,
     enableLanguageSelect: true
   },
