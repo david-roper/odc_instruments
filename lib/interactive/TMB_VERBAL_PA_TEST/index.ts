@@ -107,16 +107,112 @@ mirror wallet cement wallet movie cousin
 fruit elbow mustard paint elbow material
 `.trim();
 
+const easyFr = `
+* Version française de easy (TEST)
+* PROBE TARGET CHOICE-1 CHOICE-2 CHOICE-3 CHOICE-4
+érable fromage pomme quart citron fromage
+bibliothèque diapositive graphique médicament fleur diapositive
+seau image givre image aimant triangle
+bataille capsule asperge concombre capsule collège
+mixeur tombe tombe diapositive aimant arbitre
+insecte cognac produit oreiller musicien cognac
+humain montagne paille montagne auteur asperge
+essai fusée fusée coton brosse image
+garde triangle triangle cognac téléphone mari
+matin jupe tamia coquille jupe soldat
+herbe paille pelle reine sauce paille
+hôpital craie mari médicament craie rivage
+ordures port craie port plafond pomme
+tennis tamia oignon tamia brosse fusée
+brûleur diamant diamant produit arbitre fromage
+liquide policier musicien policier oignon montagne
+bétail jardin port jardin graphique public
+pédale collège boisson reine coton collège
+cour rivage téléphone soleil argent rivage
+enfants boisson boisson capsule plafond nuage
+ballon sauce jardin plafond sauce soldat
+camion citron givre diamant citron pelle
+souris argent policier soleil argent public
+affiche fleur jupe fleur auteur coquille
+maison oreiller oreiller concombre quart tombe
+`.trim();
+
+const hardFr = `
+* Version française de hard (TEST)
+* PROBE TARGET CHOICE-1 CHOICE-2 CHOICE-3 CHOICE-4
+hasard impulsion essence intellect distinction impulsion
+animosité savoir intellect malice savoir suppression
+aptitude dévotion suppression sécurité espoir dévotion
+attitude bravoure chagrin confiance bravoure malice
+violation destin destin bravoure savoir bien-être
+opinion chagrin liberté chagrin sécurité embarras
+intérêt embarras embarras suppression folie nécessité
+facilité espoir passion incitation espoir bien-être
+gratitude distinction dévotion nécessité distinction savoir
+satire nécessité nécessité essence sécurité méthode
+esprit attribut amour attribut dévotion destin
+loyauté incitation incitation destin embarras essence
+disposition liberté attribut malice liberté passion
+perception malice confiance malice ingratitude distinction
+âme confiance savoir confiance impulsion amour
+immunité amour ingratitude liberté destin amour
+jalousie intellect amour incitation intellect folie
+pensée sécurité sécurité nécessité attribut méthode
+reconnaissance ingratitude passion espoir intellect ingratitude
+vanité essence embarras attribut folie essence
+discipline folie chagrin liberté ingratitude folie
+fierté méthode bien-être incitation bravoure méthode
+gloire suppression suppression impulsion distinction bravoure
+plaisir bien-être méthode bien-être confiance chagrin
+théorie passion impulsion passion distinction dévotion
+`.trim();
+
+const defaultInputFr = `
+* Version française de l'entrée par défaut (TEST)
+* PROBE TARGET CHOICE-1 CHOICE-2 CHOICE-3 CHOICE-4
+femme patate patate pain araignée placard
+étudiant canapé lac bouilloire forêt canapé
+boisson lessive verre peinture détective lessive
+invité pain coude limonade pain famille
+blonde océan océan placard dentiste lac
+football dentiste avocat arme fenêtre dentiste
+cocktail ciment plancher ciment église famille
+officier bouilloire laitue dollar docteur bouilloire
+plage moutarde tunnel billet bulle moutarde
+piano morse forêt radio morse billet
+orgue laitue singe film canapé laitue
+bougie parapluie mère enveloppe sauce parapluie
+cuillère maladie sauce patate tunnel maladie
+cheval chorale océan chorale église enveloppe
+torche fermeture maladie robe fermeture tissu
+ail bulle bulle journal docteur dollar
+touriste journal fenêtre banane journal chorale
+infirmière radio araignée radio limonade parapluie
+colonne tulipe portefeuille robe tulipe casque
+flamme mère mère cousin détective fermeture
+animal verre verre singe morse banane
+lapin arme caoutchouc lessive laitue arme
+requin plancher plancher avocat tulipe casque
+miroir portefeuille ciment portefeuille film cousin
+fruit coude moutarde peinture coude tissu
+`.trim();
+
 const staticAssets = {
   '/VerbalPAtestInput_25pairs_easy1.txt': `data:text/plain,${encodeURIComponent(easy)}`,
   '/VerbalPAtestInput_25pairs_hard1.txt': `data:text/plain,${encodeURIComponent(hard)}`,
-  '/VerbalPAtestInput.txt': `data:text/plain,${encodeURIComponent(defaultInput)}`
+  '/VerbalPAtestInput.txt': `data:text/plain,${encodeURIComponent(defaultInput)}`,
+  '/VerbalPAtestInput_25pairs_easy1_fr.txt': `data:text/plain,${encodeURIComponent(easyFr)}`,
+  '/VerbalPAtestInput_25pairs_hard1_fr.txt': `data:text/plain,${encodeURIComponent(hardFr)}`,
+  '/VerbalPAtestInput_fr.txt': `data:text/plain,${encodeURIComponent(defaultInputFr)}`
 };
 
 export default defineInstrument({
   kind: 'INTERACTIVE',
-  language: 'en',
-  tags: ['TestMyBrain'],
+  language: ['en', 'fr'],
+  tags: {
+    en: ['TestMyBrain'],
+    fr: ['TestMyBrain']
+  },
   internal: {
     edition: 1,
     name: 'TMB_VERBAL_PA_TEST'
@@ -135,16 +231,28 @@ export default defineInstrument({
     },
     render,
     html,
-    staticAssets
+    staticAssets,
+    defaultFullscreen: true,
+    enableLanguageLock: true,
+    enableLanguageSelect: true
   },
   clientDetails: {
     estimatedDuration: 1,
-    instructions: ['Instructions will be presented on screen in the task.']
+    instructions: {
+      en: ['Instructions will be presented on screen in the task.'],
+      fr: ["Les instructions seront présentées à l'écran pendant la tâche."]
+    }
   },
   details: {
-    description: 'The recall phase of a verbal memory test where participants retrieve previously learned word pairs.',
+    description: {
+      en: 'The recall phase of a verbal memory test where participants retrieve previously learned word pairs.',
+      fr: 'La phase de rappel d’un test de mémoire verbale où les participants récupèrent des paires de mots apprises précédemment.'
+    },
     license: 'LGPL-3.0',
-    title: 'Verbal Paired Associates - Test'
+    title: {
+      en: 'Verbal Paired Associates - Test',
+      fr: 'Paires associées verbales — Test'
+    }
   },
   measures: {},
   validationSchema: z.object({
