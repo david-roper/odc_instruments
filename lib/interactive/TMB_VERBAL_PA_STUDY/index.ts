@@ -107,16 +107,112 @@ blonde ocean
 woman potato
 `.trim();
 
+const easyFr = `
+* Version française de easy (STUDY)
+* PROBE TARGET
+insecte cognac
+enfants boisson
+brûleur diamant
+seau image
+maison oreiller
+camion citron
+bétail jardin
+herbe paille
+matin jupe
+affiche fleur
+bibliothèque diapositive
+cour rivage
+souris argent
+essai fusée
+mixeur tombe
+ballon sauce
+érable fromage
+ordures port
+bataille capsule
+pédale collège
+garde triangle
+hôpital craie
+liquide policier
+humain montagne
+tennis tamia
+`.trim();
+
+const hardFr = `
+* Version française de hard (STUDY)
+* PROBE TARGET
+disposition liberté
+perception malice
+aptitude dévotion
+gloire suppression
+gratitude distinction
+fierté méthode
+esprit attribut
+âme confiance
+attitude bravoure
+facilité espoir
+discipline folie
+théorie passion
+opinion chagrin
+vanité essence
+loyauté incitation
+animosité savoir
+jalousie intellect
+reconnaissance ingratitude
+immunité amour
+intérêt embarras
+plaisir bien-être
+violation destin
+hasard impulsion
+satire nécessité
+pensée sécurité
+`.trim();
+
+const defaultInputFr = `
+* Version française de l'entrée par défaut (STUDY)
+* PROBE TARGET
+officier bouilloire
+animal verre
+étudiant canapé
+cocktail ciment
+fruit coude
+cheval chorale
+piano morse
+ail bulle
+miroir portefeuille
+invité pain
+boisson lessive
+bougie parapluie
+plage moutarde
+infirmière radio
+orgue laitue
+flamme mère
+lapin arme
+requin plancher
+cuillère maladie
+touriste journal
+football dentiste
+torche fermeture
+colonne tulipe
+blonde océan
+femme patate
+`.trim();
+
 const staticAssets = {
   '/VerbalPAstudyInput_25pairs_easy1.txt': `data:text/plain,${encodeURIComponent(easy)}`,
   '/VerbalPAstudyInput_25pairs_hard1.txt': `data:text/plain,${encodeURIComponent(hard)}`,
-  '/VerbalPAstudyInput.txt': `data:text/plain,${encodeURIComponent(defaultInput)}`
+  '/VerbalPAstudyInput.txt': `data:text/plain,${encodeURIComponent(defaultInput)}`,
+  '/VerbalPAstudyInput_25pairs_easy1_fr.txt': `data:text/plain,${encodeURIComponent(easyFr)}`,
+  '/VerbalPAstudyInput_25pairs_hard1_fr.txt': `data:text/plain,${encodeURIComponent(hardFr)}`,
+  '/VerbalPAstudyInput_fr.txt': `data:text/plain,${encodeURIComponent(defaultInputFr)}`
 };
 
 export default defineInstrument({
   kind: 'INTERACTIVE',
-  language: 'en',
-  tags: ['TestMyBrain'],
+  language: ['en', 'fr'],
+  tags: {
+    en: ['TestMyBrain'],
+    fr: ['TestMyBrain']
+  },
   internal: {
     edition: 1,
     name: 'TMB_VERBAL_PA_STUDY'
@@ -135,16 +231,28 @@ export default defineInstrument({
     },
     render,
     html,
-    staticAssets
+    staticAssets,
+    defaultFullscreen: true,
+    enableLanguageLock: true,
+    enableLanguageSelect: true
   },
   clientDetails: {
     estimatedDuration: 1,
-    instructions: ['Instructions will be presented on screen in the task.']
+    instructions: {
+      en: ['Instructions will be presented on screen in the task.'],
+      fr: ["Les instructions seront présentées à l'écran pendant la tâche."]
+    }
   },
   details: {
-    description: 'The encoding phase of a verbal memory test where participants learn word pairs for later recall.',
+    description: {
+      en: 'The encoding phase of a verbal memory test where participants learn word pairs for later recall.',
+      fr: 'La phase d’encodage d’un test de mémoire verbale où les participants apprennent des paires de mots en vue d’un rappel ultérieur.'
+    },
     license: 'LGPL-3.0',
-    title: 'Verbal Paired Associates - Study'
+    title: {
+      en: 'Verbal Paired Associates - Study',
+      fr: 'Paires associées verbales — Étude'
+    }
   },
   measures: {},
   validationSchema: z.array(
