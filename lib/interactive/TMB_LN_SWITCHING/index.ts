@@ -2,15 +2,23 @@ import { defineInstrument } from '/runtime/v1/@opendatacapture/runtime-core';
 import { z } from '/runtime/v1/zod@3.x/v4';
 
 import fingerImg from './_finger.webp';
-import inst0Img from './_Inst0.webp';
+import inst0EnImg from './_Inst0_en.webp';
+import inst0FrImg from './_Inst0_fr.webp';
 import inst1Img from './_Inst1.webp';
-import inst2Img from './_Inst2.webp';
-import inst3Img from './_Inst3.webp';
-import inst4Img from './_Inst4.webp';
-import letterInstImg from './_letterInst.webp';
-import letterInstClickImg from './_letterInst_click.webp';
-import numberInstImg from './_numberInst.webp';
-import numberInstClickImg from './_numberInst_click.webp';
+import inst2EnImg from './_Inst2_en.webp';
+import inst2FrImg from './_Inst2_fr.webp';
+import inst3EnImg from './_Inst3_en.webp';
+import inst3FrImg from './_Inst3_fr.webp';
+import inst4EnImg from './_Inst4_en.webp';
+import inst4FrImg from './_Inst4_fr.webp';
+import letterInstClickEnImg from './_letterInst_click_en.webp';
+import letterInstClickFrImg from './_letterInst_click_fr.webp';
+import letterInstEnImg from './_letterInst_en.webp';
+import letterInstFrImg from './_letterInst_fr.webp';
+import numberInstClickEnImg from './_numberInst_click_en.webp';
+import numberInstClickFrImg from './_numberInst_click_fr.webp';
+import numberInstEnImg from './_numberInst_en.webp';
+import numberInstFrImg from './_numberInst_fr.webp';
 import html from './fragment.html';
 import { render } from './render.js';
 
@@ -19,16 +27,24 @@ import './TestHelper.v1.May23.js?legacy';
 import './styles.css';
 
 const staticAssets = {
-  '/images/Inst0.jpg': inst0Img,
   '/images/Inst1.jpg': inst1Img,
-  '/images/Inst2.jpg': inst2Img,
-  '/images/Inst3.jpg': inst3Img,
-  '/images/Inst4.jpg': inst4Img,
   '/images/finger.png': fingerImg,
-  '/images/numberInst.jpg': numberInstImg,
-  '/images/numberInst_click.jpg': numberInstClickImg,
-  '/images/letterInst.jpg': letterInstImg,
-  '/images/letterInst_click.jpg': letterInstClickImg
+  '/images/Inst0_en.jpg': inst0EnImg,
+  '/images/Inst0_fr.jpg': inst0FrImg,
+  '/images/Inst2_en.jpg': inst2EnImg,
+  '/images/Inst2_fr.jpg': inst2FrImg,
+  '/images/Inst3_en.jpg': inst3EnImg,
+  '/images/Inst3_fr.jpg': inst3FrImg,
+  '/images/Inst4_en.jpg': inst4EnImg,
+  '/images/Inst4_fr.jpg': inst4FrImg,
+  '/images/numberInst_en.jpg': numberInstEnImg,
+  '/images/numberInst_fr.jpg': numberInstFrImg,
+  '/images/numberInst_click_en.jpg': numberInstClickEnImg,
+  '/images/numberInst_click_fr.jpg': numberInstClickFrImg,
+  '/images/letterInst_en.jpg': letterInstEnImg,
+  '/images/letterInst_fr.jpg': letterInstFrImg,
+  '/images/letterInst_click_en.jpg': letterInstClickEnImg,
+  '/images/letterInst_click_fr.jpg': letterInstClickFrImg
 };
 
 export default defineInstrument({
@@ -57,6 +73,7 @@ export default defineInstrument({
     html,
     render,
     staticAssets,
+    defaultFullscreen: true,
     enableLanguageLock: true,
     enableLanguageSelect: true
   },

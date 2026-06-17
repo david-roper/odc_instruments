@@ -515,6 +515,7 @@ export default defineInstrument({
     name: 'TMB_MATRIX_REASONING'
   },
   content: {
+    defaultFullscreen: true,
     meta: {
       charset: 'UTF-8',
       copyright: '2023 The Many Brains Project, Inc. and McLean Hospital LGPLv3',
